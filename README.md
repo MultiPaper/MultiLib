@@ -147,3 +147,6 @@ mvn
 
 ## License
 MultiLib is licensed under the [MIT license](LICENSE)
+
+## PaperLib
+MultiLib is inspired by PaperMC's [PaperLib](https://github.com/PaperMC/PaperLib)
