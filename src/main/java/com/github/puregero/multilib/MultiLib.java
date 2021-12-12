@@ -83,7 +83,7 @@ public class MultiLib {
      * @return True if the chunk is a local chunk, or false if the chunk
      * is running on an external server or if it's unloaded.
      */
-    public boolean isChunkLocal(World world, int cx, int cz) {
+    public static boolean isChunkLocal(World world, int cx, int cz) {
         return get().isChunkLocal(world, cx, cz);
     }
 
@@ -93,7 +93,7 @@ public class MultiLib {
      * @return True if the chunk is a local chunk, or false if the chunk
      * is running on an external server or if it's unloaded.
      */
-    public boolean isChunkLocal(Location location) {
+    public static boolean isChunkLocal(Location location) {
         return get().isChunkLocal(location);
     }
 
@@ -103,7 +103,7 @@ public class MultiLib {
      * @return True if the chunk is a local chunk, or false if the chunk
      * is running on an external server or if it's unloaded.
      */
-    public boolean isChunkLocal(Entity entity) {
+    public static boolean isChunkLocal(Entity entity) {
         return get().isChunkLocal(entity);
     }
 
@@ -113,7 +113,7 @@ public class MultiLib {
      * @return True if the chunk is a local chunk, or false if the chunk
      * is running on an external server or if it's unloaded.
      */
-    public boolean isChunkLocal(Block block) {
+    public static boolean isChunkLocal(Block block) {
         return get().isChunkLocal(block);
     }
 
@@ -123,7 +123,7 @@ public class MultiLib {
      * @return True if the chunk is a local chunk, or false if the chunk
      * is running on an external server or if it's unloaded.
      */
-    public boolean isChunkLocal(Chunk chunk) {
+    public static boolean isChunkLocal(Chunk chunk) {
         return get().isChunkLocal(chunk);
     }
 
@@ -132,7 +132,7 @@ public class MultiLib {
      *
      * @return True if the player is on an external server.
      */
-    public boolean isExternalPlayer(Player player) {
+    public static boolean isExternalPlayer(Player player) {
         return get().isExternalPlayer(player);
     }
 
@@ -141,7 +141,7 @@ public class MultiLib {
      *
      * @return True if the player is on this server.
      */
-    public boolean isLocalPlayer(Player player) {
+    public static boolean isLocalPlayer(Player player) {
         return get().isLocalPlayer(player);
     }
 
@@ -153,7 +153,7 @@ public class MultiLib {
      * @param key The key the data is stored under.
      * @return The data stored under the key, or null if the key isn't set.
      */
-    public String getData(Player player, String key) {
+    public static String getData(Player player, String key) {
         return get().getData(player, key);
     }
 
@@ -165,7 +165,7 @@ public class MultiLib {
      * @param key The key to store the data under.
      * @param value The data to store under the key.
      */
-    public void setData(Player player, String key, String value) {
+    public static void setData(Player player, String key, String value) {
         get().setData(player, key, value);
     }
 
@@ -178,7 +178,7 @@ public class MultiLib {
      * @param key The key the data is stored under.
      * @return The data stored under the key, or null if the key isn't set.
      */
-    public String getPersistentData(Player player, String key) {
+    public static String getPersistentData(Player player, String key) {
         return get().getPersistentData(player, key);
     }
 
@@ -191,7 +191,7 @@ public class MultiLib {
      * @param key The key to store the data under.
      * @param value The data to store under the key.
      */
-    public void setPersistentData(Player player, String key, String value) {
+    public static void setPersistentData(Player player, String key, String value) {
         get().setPersistentData(player, key, value);
     }
 }
