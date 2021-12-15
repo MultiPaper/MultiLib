@@ -1,12 +1,17 @@
 package com.github.puregero.multilib.multipaper;
 
 import com.github.puregero.multilib.MultiLibImpl;
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
+
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 public class MultiPaperImpl implements MultiLibImpl {
 
@@ -96,5 +101,45 @@ public class MultiPaperImpl implements MultiLibImpl {
     @Override
     public void setPersistentData(Player player, String key, String value) {
         player.setPersistentData(key, value);
+    }
+
+    @Override
+    public void on(Plugin plugin, String channel, Consumer<byte[]> callback) {
+        Bukkit.getMultiPaperNotificationManager().on(plugin, channel, callback);
+    }
+
+    @Override
+    public void onString(Plugin plugin, String channel, Consumer<String> callback) {
+        Bukkit.getMultiPaperNotificationManager().onString(plugin, channel, callback);
+    }
+
+    @Override
+    public void on(Plugin plugin, String channel, BiConsumer<byte[], BiConsumer<String, byte[]>> callbackWithReply) {
+        Bukkit.getMultiPaperNotificationManager().on(plugin, channel, callbackWithReply);
+    }
+
+    @Override
+    public void onString(Plugin plugin, String channel, BiConsumer<String, BiConsumer<String, String>> callbackWithReply) {
+        Bukkit.getMultiPaperNotificationManager().onString(plugin, channel, callbackWithReply);
+    }
+
+    @Override
+    public void notify(String channel, byte[] data) {
+        Bukkit.getMultiPaperNotificationManager().notify(channel, data);
+    }
+
+    @Override
+    public void notify(String channel, String data) {
+        Bukkit.getMultiPaperNotificationManager().notify(channel, data);
+    }
+
+    @Override
+    public void notify(Chunk chunk, String channel, byte[] data) {
+        Bukkit.getMultiPaperNotificationManager().notify(chunk, channel, data);
+    }
+
+    @Override
+    public void notify(Chunk chunk, String channel, String data) {
+        Bukkit.getMultiPaperNotificationManager().notify(chunk, channel, data);
     }
 }

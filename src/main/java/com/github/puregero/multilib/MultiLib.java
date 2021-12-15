@@ -8,6 +8,11 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
+
+import java.nio.charset.StandardCharsets;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 public class MultiLib {
 
@@ -193,5 +198,91 @@ public class MultiLib {
      */
     public static void setPersistentData(Player player, String key, String value) {
         get().setPersistentData(player, key, value);
+    }
+
+    /**
+     * Listen to notifications sent by other servers.
+     *
+     * @param plugin The plugin listening to these notifications
+     * @param channel The notification channel to listen to
+     * @param callback A handler for any data received
+     */
+    public static void on(Plugin plugin, String channel, Consumer<byte[]> callback) {
+        get().on(plugin, channel, callback);
+    }
+
+    /**
+     * Listen to notifications sent by other servers.
+     *
+     * @param plugin The plugin listening to these notifications
+     * @param channel The notification channel to listen to
+     * @param callback A handler for any data received
+     */
+    public static void onString(Plugin plugin, String channel, Consumer<String> callback) {
+        get().onString(plugin, channel, callback);
+    }
+
+    /**
+     * Listen to notifications sent by other servers.
+     *
+     * @param plugin The plugin listening to these notifications
+     * @param channel The notification channel to listen to
+     * @param callbackWithReply A handler for any data received, and a method to reply to the server on a specified channel
+     */
+    public static void on(Plugin plugin, String channel, BiConsumer<byte[], BiConsumer<String, byte[]>> callbackWithReply) {
+        get().on(plugin, channel, callbackWithReply);
+    }
+
+    /**
+     * Listen to notifications sent by other servers.
+     *
+     * @param plugin The plugin listening to these notifications
+     * @param channel The notification channel to listen to
+     * @param callbackWithReply A handler for any data received, and a method to reply to the server on a specified channel
+     */
+    public static void onString(Plugin plugin, String channel, BiConsumer<String, BiConsumer<String, String>> callbackWithReply) {
+        get().onString(plugin, channel, callbackWithReply);
+    }
+
+    /**
+     * Notify other servers.
+     *
+     * @param channel The notification channel to notify on
+     * @param data The data to notify other servers with
+     */
+    public static void notify(String channel, byte[] data) {
+        get().notify(channel, data);
+    }
+
+    /**
+     * Notify other servers.
+     *
+     * @param channel The notification channel to notify on
+     * @param data The data to notify other servers with
+     */
+    public static void notify(String channel, String data) {
+        get().notify(channel, data);
+    }
+
+    /**
+     * Notify other servers with the specified chunk loaded
+     *
+     * @param chunk The chunk that's loaded
+     * @param channel The notification channel to notify on
+     * @param data The data to notify other servers with
+     */
+    public static void notify(Chunk chunk, String channel, byte[] data) {
+        get().notify(chunk, channel, data);
+    }
+
+    /**
+     * Notify other servers with the specified chunk loaded
+     *
+     * @param chunk The chunk that's loaded
+     * @param channel The notification channel to notify on
+     * @param data The data to notify other servers with
+     */
+    public static void notify(Chunk chunk, String channel, String data) {
+        get().notify(chunk, channel, data);
     }
 }

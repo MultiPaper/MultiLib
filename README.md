@@ -41,9 +41,40 @@ On MultiPaper, data stored with these methods will be available on all servers.
 Persistent data will be saved to the disk while non-persistent data will be lost when the player disconnects.
 On Bukkit, this data will only be available on the one server, and persistent data will be stored in a yaml file under `multilib-data`.
 
-## Example Plugin
+### Notifying other servers
 ```java
+void on(Plugin plugin, String channel, Consumer<byte[]> callback);
+void onString(Plugin plugin, String channel, Consumer<String> callback);
+void on(Plugin plugin, String channel, BiConsumer<byte[], BiConsumer<String, byte[]>> callbackWithReply);
+void onString(Plugin plugin, String channel, BiConsumer<String, BiConsumer<String, String>> callbackWithReply);
+void notify(String channel, byte[] data);
+void notify(String channel, String data);
+void notify(Chunk chunk, String channel, byte[] data);
+void notify(Chunk chunk, String channel, String data);
+```
+On MultiPaper, plugins running on other servers can be notified with a data payload.
+You can also notify only certain server with a specified chunk loaded.
+On Bukkit, these methods will do nothing as there are no other servers
+
+## Example Plugin
+
+```java
+import com.github.puregero.multilib.MultiLib;
+
 public class MyPlugin extends JavaPlugin {
+    public void onEnable() {
+        MultiLib.onString(this, "myplugin:testchannel", (data, reply) -> {
+            getLogger().info("Received " + data);
+            reply.accept("myplugin:testchannelreply", "Replying to " + data);
+        });
+
+        MultiLib.onString(this, "myplugin:testchannelreply", data -> {
+            getLogger().info("Received the reply " + data);
+        });
+
+        MultiLib.notify("myplugin:testchannel", "Hello!");
+    }
+
     public void doSomething(Player player) {
         if (MultiLib.isExternalPlayer(player)) {
             getLogger().info("Not our player! Let's not actually do this!");

@@ -7,9 +7,12 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 
 import java.util.HashMap;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 public class BukkitImpl implements MultiLibImpl {
 
@@ -103,5 +106,25 @@ public class BukkitImpl implements MultiLibImpl {
     @Override
     public void setPersistentData(Player player, String key, String value) {
         data.computeIfAbsent(player, playerKey -> new StoredData(playerKey, scheduler)).setPersistentData(key, value);
+    }
+
+    @Override
+    public void on(Plugin plugin, String channel, Consumer<byte[]> callback) {
+        // Do nothing, no other servers exist
+    }
+
+    @Override
+    public void on(Plugin plugin, String channel, BiConsumer<byte[], BiConsumer<String, byte[]>> callbackWithReply) {
+        // Do nothing, no other servers exist
+    }
+
+    @Override
+    public void notify(String channel, byte[] data) {
+        // Do nothing, no other servers exist
+    }
+
+    @Override
+    public void notify(Chunk chunk, String channel, byte[] data) {
+        // Do nothing, no other servers exist
     }
 }

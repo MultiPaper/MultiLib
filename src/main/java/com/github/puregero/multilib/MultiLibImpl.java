@@ -6,6 +6,11 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
+
+import java.nio.charset.StandardCharsets;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 public interface MultiLibImpl {
 
@@ -40,4 +45,31 @@ public interface MultiLibImpl {
     String getPersistentData(Player player, String key);
 
     void setPersistentData(Player player, String key, String value);
+
+    void on(Plugin plugin, String channel, Consumer<byte[]> callback);
+
+    default void onString(Plugin plugin, String channel, Consumer<String> callback) {
+        on(plugin, channel, bytes -> callback.accept(new String(bytes, StandardCharsets.UTF_8)));
+    }
+
+    void on(Plugin plugin, String channel, BiConsumer<byte[], BiConsumer<String, byte[]>> callbackWithReply);
+
+    default void onString(Plugin plugin, String channel, BiConsumer<String, BiConsumer<String, String>> callbackWithReply) {
+        on(plugin, channel, (bytes, reply) -> callbackWithReply.accept(
+                new String(bytes, StandardCharsets.UTF_8),
+                (replyChannel, string) -> reply.accept(replyChannel, string.getBytes(StandardCharsets.UTF_8)))
+        );
+    }
+
+    void notify(String channel, byte[] data);
+
+    default void notify(String channel, String data) {
+        notify(channel, data.getBytes(StandardCharsets.UTF_8));
+    }
+
+    void notify(Chunk chunk, String channel, byte[] data);
+
+    default void notify(Chunk chunk, String channel, String data) {
+        notify(chunk, channel, data.getBytes(StandardCharsets.UTF_8));
+    }
 }
