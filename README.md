@@ -2,7 +2,7 @@
 MultiLib is a plugin library for interfacing with MultiPaper specific APIs (such as external player detection), with graceful fallbacks maintaining compatibility with both the Bukkit and Spigot API's.
 
 ## API
-All API calls can be found as static util methods in the `MultiPaper` class.
+All API calls can be found as static util methods in the `MultiLib` class.
 
 ### Chunks
 ```java
