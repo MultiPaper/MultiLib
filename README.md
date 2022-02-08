@@ -54,15 +54,15 @@ void notify(Chunk chunk, String channel, String data);
 ```
 On MultiPaper, plugins running on other servers can be notified with a data payload.
 You can also notify only certain server with a specified chunk loaded.
-On Bukkit, these methods will do nothing as there are no other servers
+On Bukkit, these methods will do nothing as there are no other servers.
 
 ### Running commands on other servers
 ```java
 void chatOnOtherServers(Player player, String message);
 ```
-On MultiPaper, this will make a player say a chat message (or run a command)
-on all other servers. On Bukkit, this method will do nothing as there is no
-other server.
+On MultiPaper, the specified player will say a chat message (or run a command)
+on all other servers. On Bukkit, this method will do nothing as there are no
+other servers.
 
 ## Example Plugin
 
@@ -142,7 +142,7 @@ Dependency:
     <dependency>
         <groupId>com.github.puregero</groupId>
         <artifactId>multilib</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.1.0</version>
         <scope>compile</scope>
      </dependency>
  </dependencies>
