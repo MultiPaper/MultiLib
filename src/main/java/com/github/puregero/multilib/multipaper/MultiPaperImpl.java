@@ -142,4 +142,9 @@ public class MultiPaperImpl implements MultiLibImpl {
     public void notify(Chunk chunk, String channel, String data) {
         Bukkit.getMultiPaperNotificationManager().notify(chunk, channel, data);
     }
+
+    @Override
+    public void chatOnOtherServers(Player player, String message) {
+        player.chatOnOtherServers(message);
+    }
 }

@@ -72,4 +72,6 @@ public interface MultiLibImpl {
     default void notify(Chunk chunk, String channel, String data) {
         notify(chunk, channel, data.getBytes(StandardCharsets.UTF_8));
     }
+
+    void chatOnOtherServers(Player player, String message);
 }

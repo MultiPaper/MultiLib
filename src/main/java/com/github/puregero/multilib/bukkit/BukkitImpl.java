@@ -127,4 +127,9 @@ public class BukkitImpl implements MultiLibImpl {
     public void notify(Chunk chunk, String channel, byte[] data) {
         // Do nothing, no other servers exist
     }
+
+    @Override
+    public void chatOnOtherServers(Player player, String message) {
+        // Do nothing, no other servers exist
+    }
 }

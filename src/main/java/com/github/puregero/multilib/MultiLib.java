@@ -285,4 +285,13 @@ public class MultiLib {
     public static void notify(Chunk chunk, String channel, String data) {
         get().notify(chunk, channel, data);
     }
+
+    /**
+     * Says a message (or runs a command) on other servers excluding this one.
+     *
+     * @param message The chat message to say
+     */
+    public static void chatOnOtherServers(Player player, String message) {
+        get().chatOnOtherServers(player, message);
+    }
 }

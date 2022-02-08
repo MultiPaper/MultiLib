@@ -56,6 +56,14 @@ On MultiPaper, plugins running on other servers can be notified with a data payl
 You can also notify only certain server with a specified chunk loaded.
 On Bukkit, these methods will do nothing as there are no other servers
 
+### Running commands on other servers
+```java
+void chatOnOtherServers(Player player, String message);
+```
+On MultiPaper, this will make a player say a chat message (or run a command)
+on all other servers. On Bukkit, this method will do nothing as there is no
+other server.
+
 ## Example Plugin
 
 ```java
@@ -103,7 +111,7 @@ repositories {
 Dependency:
 ```groovy
 dependencies {
-    implementation "com.github.puregero:multilib:1.0.0-SNAPSHOT"
+    implementation "com.github.puregero:multilib:1.1.0"
 }
 ```
 
