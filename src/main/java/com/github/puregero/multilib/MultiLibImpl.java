@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Collection;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -74,4 +75,10 @@ public interface MultiLibImpl {
     }
 
     void chatOnOtherServers(Player player, String message);
+
+    Collection<? extends Player> getAllOnlinePlayers();
+
+    default Collection<? extends Player> getLocalOnlinePlayers() {
+        return getAllOnlinePlayers();
+    }
 }

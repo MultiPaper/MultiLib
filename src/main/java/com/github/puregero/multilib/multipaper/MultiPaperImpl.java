@@ -10,6 +10,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
+import java.util.Collection;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -146,5 +147,15 @@ public class MultiPaperImpl implements MultiLibImpl {
     @Override
     public void chatOnOtherServers(Player player, String message) {
         player.chatOnOtherServers(message);
+    }
+
+    @Override
+    public Collection<? extends Player> getAllOnlinePlayers() {
+        return Bukkit.getAllOnlinePlayers();
+    }
+
+    @Override
+    public Collection<? extends Player> getLocalOnlinePlayers() {
+        return Bukkit.getLocalOnlinePlayers();
     }
 }

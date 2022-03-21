@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Collection;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -293,5 +294,23 @@ public class MultiLib {
      */
     public static void chatOnOtherServers(Player player, String message) {
         get().chatOnOtherServers(player, message);
+    }
+
+    /**
+     * Returns all online players across all server instances.
+     *
+     * @return a view of all online players
+     */
+    public static Collection<? extends Player> getAllOnlinePlayers() {
+        return get().getAllOnlinePlayers();
+    }
+
+    /**
+     * Returns players logged into your single local server instance.
+     *
+     * @return a view of players online on your local instance
+     */
+    public static Collection<? extends Player> getLocalOnlinePlayers() {
+        return get().getLocalOnlinePlayers();
     }
 }

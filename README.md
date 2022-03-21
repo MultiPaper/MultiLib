@@ -30,6 +30,15 @@ Even if the player is an external player, it may still be in local chunks.
 The same can be said for local players, they can be in external chunks.
 On Bukkit, all players are local.
 
+```java
+Collection<? extends Player> getAllOnlinePlayers();
+Collection<? extends Player> getLocalOnlinePlayers();
+```
+On MultiPaper, all online players will return all players across all MultiPaper
+instances. Local online players will return the players on your single local
+MultiPaper instance.
+On Bukkit, both these methods return the same collection of players.
+
 ### Sharing data
 ```java
 String getData(Player player, String key);

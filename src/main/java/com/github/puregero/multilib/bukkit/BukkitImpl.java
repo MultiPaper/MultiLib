@@ -1,6 +1,7 @@
 package com.github.puregero.multilib.bukkit;
 
 import com.github.puregero.multilib.MultiLibImpl;
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -9,6 +10,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.function.BiConsumer;
@@ -131,5 +133,10 @@ public class BukkitImpl implements MultiLibImpl {
     @Override
     public void chatOnOtherServers(Player player, String message) {
         // Do nothing, no other servers exist
+    }
+
+    @Override
+    public Collection<? extends Player> getAllOnlinePlayers() {
+        return Bukkit.getOnlinePlayers();
     }
 }
