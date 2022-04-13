@@ -9,6 +9,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.Nullable;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
@@ -149,6 +150,17 @@ public class MultiLib {
      */
     public static boolean isLocalPlayer(Player player) {
         return get().isLocalPlayer(player);
+    }
+
+    /**
+     * Get the bungeecord name of the server that this player is on.
+     *
+     * @return The bungeecord name of the server the player is on for external
+     *         players, or null for local players.
+     */
+    @Nullable
+    public static String getExternalServerName(Player player) {
+        return get().getExternalServerName(player);
     }
 
     /**

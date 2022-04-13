@@ -91,6 +91,11 @@ public class BukkitImpl implements MultiLibImpl {
     }
 
     @Override
+    public String getExternalServerName(Player player) {
+        return null;
+    }
+
+    @Override
     public String getData(Player player, String key) {
         return data.containsKey(player) ? data.get(player).getData(player, key) : null;
     }

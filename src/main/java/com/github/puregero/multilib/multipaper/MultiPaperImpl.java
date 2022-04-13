@@ -85,6 +85,11 @@ public class MultiPaperImpl implements MultiLibImpl {
     }
 
     @Override
+    public String getExternalServerName(Player player) {
+        return player.getExternalServerName();
+    }
+
+    @Override
     public String getData(Player player, String key) {
         return player.getData(key);
     }

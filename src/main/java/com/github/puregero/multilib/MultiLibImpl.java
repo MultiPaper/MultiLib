@@ -7,6 +7,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.Nullable;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
@@ -38,6 +39,8 @@ public interface MultiLibImpl {
     boolean isExternalPlayer(Player player);
 
     boolean isLocalPlayer(Player player);
+
+    @Nullable String getExternalServerName(Player player);
 
     String getData(Player player, String key);
 
