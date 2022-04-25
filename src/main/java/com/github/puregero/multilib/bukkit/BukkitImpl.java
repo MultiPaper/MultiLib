@@ -9,6 +9,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -88,6 +89,11 @@ public class BukkitImpl implements MultiLibImpl {
     @Override
     public boolean isLocalPlayer(Player player) {
         return true;
+    }
+
+    @Override
+    public @NotNull String getLocalServerName() {
+        return "bukkit";
     }
 
     @Override

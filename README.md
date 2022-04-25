@@ -25,11 +25,13 @@ On Bukkit, all chunks are local.
 boolean isExternalPlayer(Player player);
 boolean isLocalPlayer(Player player);
 String getExternalServerName(Player player);
+String getLocalServerName();
 ```
 On MultiPaper, an external player is a player connected to another server.
 Even if the player is an external player, it may still be in local chunks.
 The same can be said for local players, they can be in external chunks.
-On Bukkit, all players are local.
+On Bukkit, all players are local, and the server's local name will always be
+"bukkit".
 
 ```java
 @Nullable String getExternalServerName(Player player);

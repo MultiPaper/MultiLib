@@ -9,6 +9,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 import java.util.function.BiConsumer;
@@ -82,6 +83,11 @@ public class MultiPaperImpl implements MultiLibImpl {
     @Override
     public boolean isLocalPlayer(Player player) {
         return player.isLocalPlayer();
+    }
+
+    @Override
+    public @NotNull String getLocalServerName() {
+        return Bukkit.getLocalServerName();
     }
 
     @Override
