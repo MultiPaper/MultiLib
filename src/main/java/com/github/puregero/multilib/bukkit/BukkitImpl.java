@@ -1,5 +1,6 @@
 package com.github.puregero.multilib.bukkit;
 
+import com.github.puregero.multilib.DataStorageImpl;
 import com.github.puregero.multilib.MultiLibImpl;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
@@ -21,6 +22,7 @@ public class BukkitImpl implements MultiLibImpl {
 
     private final HashMap<Player, StoredData> data = new HashMap<>();
     private final ScheduledThreadPoolExecutor scheduler = new ScheduledThreadPoolExecutor(1);
+    private final BukkitDataStorageImpl dataStorage = new BukkitDataStorageImpl();
 
     public BukkitImpl() {
         Runtime.getRuntime().addShutdownHook(new Thread("MultiLib data save") {
@@ -149,5 +151,10 @@ public class BukkitImpl implements MultiLibImpl {
     @Override
     public Collection<? extends Player> getAllOnlinePlayers() {
         return Bukkit.getOnlinePlayers();
+    }
+
+    @Override
+    public DataStorageImpl getDataStorage() {
+        return dataStorage;
     }
 }

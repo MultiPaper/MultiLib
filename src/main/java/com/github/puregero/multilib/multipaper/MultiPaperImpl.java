@@ -1,5 +1,6 @@
 package com.github.puregero.multilib.multipaper;
 
+import com.github.puregero.multilib.DataStorageImpl;
 import com.github.puregero.multilib.MultiLibImpl;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
@@ -16,6 +17,8 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class MultiPaperImpl implements MultiLibImpl {
+
+    private final MultiPaperDataStorageImpl dataStorage = new MultiPaperDataStorageImpl();
 
     public MultiPaperImpl() {
         try {
@@ -168,5 +171,10 @@ public class MultiPaperImpl implements MultiLibImpl {
     @Override
     public Collection<? extends Player> getLocalOnlinePlayers() {
         return Bukkit.getLocalOnlinePlayers();
+    }
+
+    @Override
+    public DataStorageImpl getDataStorage() {
+        return dataStorage;
     }
 }

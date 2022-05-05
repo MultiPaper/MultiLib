@@ -12,7 +12,6 @@ import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -335,5 +334,16 @@ public class MultiLib {
      */
     public static Collection<? extends Player> getLocalOnlinePlayers() {
         return get().getLocalOnlinePlayers();
+    }
+
+    /**
+     * Gets the multipaper key-value data storage. Accessing this data is
+     * asynchronous. This storage medium is hosted on the Master instance,
+     * or a yaml file when using Bukkit.
+     *
+     * @return the multipaper data storage
+     */
+    public static DataStorageImpl getDataStorage() {
+        return get().getDataStorage();
     }
 }

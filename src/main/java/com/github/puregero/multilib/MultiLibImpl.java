@@ -87,4 +87,6 @@ public interface MultiLibImpl {
     default Collection<? extends Player> getLocalOnlinePlayers() {
         return getAllOnlinePlayers();
     }
+
+    DataStorageImpl getDataStorage();
 }
