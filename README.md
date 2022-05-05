@@ -88,8 +88,8 @@ other servers.
 MultiLib.getDataStorage();
 CompletableFuture<String> get(String key);
 CompletableFuture<String> set(String key, String value);
-CompletableFuture<String> add(String key, int increment);
-CompletableFuture<String> add(String key, double increment);
+CompletableFuture<Integer> add(String key, int increment);
+CompletableFuture<Double> add(String key, double increment);
 ```
 An async key-value data storage. This should not be used for large data as the
 backing database is in-memory and utilises an inefficient file storage format.
