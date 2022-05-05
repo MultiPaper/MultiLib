@@ -83,6 +83,19 @@ On MultiPaper, the specified player will say a chat message (or run a command)
 on all other servers. On Bukkit, this method will do nothing as there are no
 other servers.
 
+### Simple key-value data storage
+```java
+MultiLib.getDataStorage();
+CompletableFuture<String> get(String key);
+CompletableFuture<String> set(String key, String value);
+CompletableFuture<String> add(String key, int increment);
+CompletableFuture<String> add(String key, double increment);
+```
+An async key-value data storage. This should not be used for large data as the
+backing database is in-memory and utilises an inefficient file storage format.
+Adding is an atomic operation. Any changes on one server will instantly be
+reflected across all other servers.
+
 ## Example Plugin
 
 ```java
@@ -130,7 +143,7 @@ repositories {
 Dependency:
 ```groovy
 dependencies {
-    implementation "com.github.puregero:multilib:1.1.3"
+    implementation "com.github.puregero:multilib:1.1.5"
 }
 ```
 
@@ -161,7 +174,7 @@ Dependency:
     <dependency>
         <groupId>com.github.puregero</groupId>
         <artifactId>multilib</artifactId>
-        <version>1.1.3</version>
+        <version>1.1.5</version>
         <scope>compile</scope>
      </dependency>
  </dependencies>
