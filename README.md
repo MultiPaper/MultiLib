@@ -91,6 +91,7 @@ CompletableFuture<Map<String, String>> list(String keyPrefix);
 CompletableFuture<String> set(String key, String value);
 CompletableFuture<Integer> add(String key, int increment);
 CompletableFuture<Double> add(String key, double increment);
+MultiLib.getDataStorage().createCache(Plugin plugin, String keyPrefix);
 ```
 An async key-value data storage. This should not be used for large data as the
 backing database is in-memory and utilises an inefficient file storage format.

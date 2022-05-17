@@ -1,6 +1,7 @@
 package com.github.puregero.multilib.bukkit;
 
 import com.github.puregero.multilib.DataStorageImpl;
+import com.github.puregero.multilib.util.StringAddition;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
@@ -16,26 +17,6 @@ import java.util.concurrent.TimeUnit;
 public class BukkitDataStorageImpl implements DataStorageImpl {
     private CompletableFuture<Map<String, Object>> yaml;
     private CompletableFuture<Void> saveFuture;
-
-    private String add0(String A, String B) {
-        if (A == null) {
-            return B;
-        }
-
-        try {
-            long a = Long.parseLong(A);
-            long b = Long.parseLong(B);
-            return Long.toString(a + b);
-        } catch (NumberFormatException ignored) {}
-
-        try {
-            double a = Double.parseDouble(A);
-            double b = Double.parseDouble(B);
-            return Double.toString(a + b);
-        } catch (NumberFormatException ignored) {}
-
-        return B;
-    }
 
     private synchronized void scheduleSave() {
         if (saveFuture == null || saveFuture.isDone()) {
@@ -125,7 +106,7 @@ public class BukkitDataStorageImpl implements DataStorageImpl {
     @Override
     public CompletableFuture<String> add(String key, String increment) {
         return loadYaml().thenApply(yaml -> {
-            String result = add0((String) yaml.get(key), increment);
+            String result = StringAddition.add((String) yaml.get(key), increment);
             yaml.put(key, result);
             scheduleSave();
             return result;
