@@ -87,6 +87,7 @@ other servers.
 ```java
 MultiLib.getDataStorage();
 CompletableFuture<String> get(String key);
+CompletableFuture<Map<String, String>> list(String keyPrefix);
 CompletableFuture<String> set(String key, String value);
 CompletableFuture<Integer> add(String key, int increment);
 CompletableFuture<Double> add(String key, double increment);

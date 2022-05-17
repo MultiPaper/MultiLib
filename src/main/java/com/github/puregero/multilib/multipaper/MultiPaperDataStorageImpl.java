@@ -3,6 +3,7 @@ package com.github.puregero.multilib.multipaper;
 import com.github.puregero.multilib.DataStorageImpl;
 import org.bukkit.Bukkit;
 
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 public class MultiPaperDataStorageImpl implements DataStorageImpl {
@@ -44,6 +45,16 @@ public class MultiPaperDataStorageImpl implements DataStorageImpl {
     @Override
     public CompletableFuture<Double> getDouble(String key, double def) {
         return Bukkit.getMultiPaperDataStorage().getDouble(key, def);
+    }
+
+    @Override
+    public CompletableFuture<Map<String, String>> list() {
+        return Bukkit.getMultiPaperDataStorage().list();
+    }
+
+    @Override
+    public CompletableFuture<Map<String, String>> list(String keyPrefix) {
+        return Bukkit.getMultiPaperDataStorage().list(keyPrefix);
     }
 
     @Override

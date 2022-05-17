@@ -1,5 +1,6 @@
 package com.github.puregero.multilib;
 
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 public interface DataStorageImpl {
@@ -32,6 +33,12 @@ public interface DataStorageImpl {
     default CompletableFuture<Double> getDouble(String key, double def) {
         return getDouble(key).exceptionally(throwable -> def);
     }
+
+    default CompletableFuture<Map<String, String>> list() {
+        return list(null);
+    }
+
+    CompletableFuture<Map<String, String>> list(String keyPrefix);
 
     CompletableFuture<String> set(String key, String value);
 

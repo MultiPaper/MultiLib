@@ -97,6 +97,19 @@ public class BukkitDataStorageImpl implements DataStorageImpl {
     }
 
     @Override
+    public CompletableFuture<Map<String, String>> list(String keyPrefix) {
+        return loadYaml().thenApply(yaml -> {
+            Map<String, String> list = new HashMap<>();
+            for (Map.Entry<String, Object> entry : yaml.entrySet()) {
+                if (entry.getKey() != null && entry.getKey().startsWith(keyPrefix) && entry.getValue() instanceof String string) {
+                    list.put(entry.getKey(), string);
+                }
+            }
+            return list;
+        });
+    }
+
+    @Override
     public CompletableFuture<String> set(String key, String value) {
         return loadYaml().thenApply(yaml -> {
             if (value == null) {
