@@ -145,14 +145,14 @@ repositories {
 Dependency:
 ```groovy
 dependencies {
-    implementation "com.github.puregero:multilib:1.1.5"
+    implementation "com.github.puregero:multilib:1.1.8"
 }
 ```
 
 Shadow Jar and Relocate (Groovy Syntax):
 ```groovy
 plugins {
-  id "com.github.johnrengelman.shadow" version "7.1.0"
+  id "com.github.johnrengelman.shadow" version "7.1.2"
   // Make sure to always use the latest version (https://plugins.gradle.org/plugin/com.github.johnrengelman.shadow)
 }
 shadowJar {
@@ -176,7 +176,7 @@ Dependency:
     <dependency>
         <groupId>com.github.puregero</groupId>
         <artifactId>multilib</artifactId>
-        <version>1.1.5</version>
+        <version>1.1.8</version>
         <scope>compile</scope>
      </dependency>
  </dependencies>
@@ -189,7 +189,7 @@ Shade & Relocate:
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-shade-plugin</artifactId>
-            <version>3.2.4</version> <!-- Make sure to always use the latest version (https://maven.apache.org/plugins/maven-shade-plugin/) -->
+            <version>3.4.0</version> <!-- Make sure to always use the latest version (https://maven.apache.org/plugins/maven-shade-plugin/) -->
             <configuration>
                 <dependencyReducedPomLocation>${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
                 <relocations>
