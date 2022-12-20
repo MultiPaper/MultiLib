@@ -7,27 +7,31 @@ import org.bukkit.entity.Player;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class StoredData {
-    private Player lastPlayer;
+    private long lastLogin;
+    private final UUID uuid;
     private final ScheduledThreadPoolExecutor scheduler;
-    private final HashMap<String, String> data = new HashMap<>();
-    private final HashMap<String, String> persistentData = new HashMap<>();
+    private final Map<String, String> data = new HashMap<>();
+    private final Map<String, String> persistentData = new HashMap<>();
     private boolean needsSaving = false;
     private ScheduledFuture<?> saveFuture = null;
 
-    public StoredData(Player player, ScheduledThreadPoolExecutor scheduler) {
-        this.lastPlayer = player;
+    public StoredData(UUID uuid, long lastLogin, ScheduledThreadPoolExecutor scheduler) {
+        this.uuid = uuid;
+        this.lastLogin = lastLogin;
         this.scheduler = scheduler;
 
         load();
     }
 
     private File getFile() {
-        return new File("multilib-data/" + lastPlayer.getUniqueId() + ".json");
+        return new File("multilib-data/" + uuid + ".json");
     }
 
     private void load() {
@@ -64,8 +68,8 @@ public class StoredData {
 
     private void checkIfPlayerChanged(Player player) {
         // If the player has changed, that means they disconnected so we need to reset their non-persistent data
-        if (player != lastPlayer) {
-            lastPlayer = player;
+        if (lastLogin != player.getLastLogin()) {
+            lastLogin = player.getLastLogin();
             data.clear();
         }
     }
