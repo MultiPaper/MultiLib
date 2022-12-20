@@ -2,6 +2,10 @@ package com.github.puregero.multilib.bukkit;
 
 import com.github.puregero.multilib.DataStorageImpl;
 import com.github.puregero.multilib.util.StringAddition;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.server.PluginDisableEvent;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
@@ -61,15 +65,18 @@ public class BukkitDataStorageImpl implements DataStorageImpl {
     }
 
     private void registerShutdownHook() {
-        Runtime.getRuntime().addShutdownHook(new Thread("datastorage-saver") {
-            @Override
-            public void run() {
-                if (saveFuture != null && !saveFuture.isDone()) {
-                    System.out.println("Saving unsaved datastorage.yaml...");
-                    saveYaml();
+        JavaPlugin plugin = JavaPlugin.getProvidingPlugin(getClass());
+        plugin.getServer().getPluginManager().registerEvents(new Listener() {
+            @EventHandler
+            public void onDisable(PluginDisableEvent event) {
+                if (event.getPlugin() == plugin) {
+                    if (saveFuture != null && !saveFuture.isDone()) {
+                        System.out.println("Saving unsaved datastorage.yaml...");
+                        saveYaml();
+                    }
                 }
             }
-        });
+        }, plugin);
     }
 
     @Override

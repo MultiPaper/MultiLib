@@ -9,28 +9,38 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.java.PluginClassLoader;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class BukkitImpl implements MultiLibImpl {
 
-    private final HashMap<Player, StoredData> data = new HashMap<>();
+    private final Map<UUID, StoredData> data = new HashMap<>();
     private final ScheduledThreadPoolExecutor scheduler = new ScheduledThreadPoolExecutor(1);
     private final BukkitDataStorageImpl dataStorage = new BukkitDataStorageImpl();
 
     public BukkitImpl() {
-        Runtime.getRuntime().addShutdownHook(new Thread("MultiLib data save") {
-            @Override
-            public void run() {
-                data.forEach((key, value) -> value.save());
+        JavaPlugin plugin = JavaPlugin.getProvidingPlugin(getClass());
+        plugin.getServer().getPluginManager().registerEvents(new Listener() {
+            @EventHandler
+            public void onDisable(PluginDisableEvent event) {
+                if (event.getPlugin() == plugin) {
+                    data.forEach((key, value) -> value.save());
+                }
             }
-        });
+        }, plugin);
     }
 
     @Override
@@ -105,22 +115,24 @@ public class BukkitImpl implements MultiLibImpl {
 
     @Override
     public String getData(Player player, String key) {
-        return data.containsKey(player) ? data.get(player).getData(player, key) : null;
+        return data.containsKey(player.getUniqueId()) ? data.get(player.getUniqueId()).getData(player, key) : null;
     }
 
     @Override
     public void setData(Player player, String key, String value) {
-        data.computeIfAbsent(player, playerKey -> new StoredData(playerKey, scheduler)).setData(player, key, value);
+        data.computeIfAbsent(player.getUniqueId(), playerKey -> new StoredData(
+                player.getUniqueId(), player.getLastLogin(), scheduler)).setData(player, key, value);
     }
 
     @Override
     public String getPersistentData(Player player, String key) {
-        return data.containsKey(player) ? data.get(player).getPersistentData(key) : null;
+        return data.containsKey(player.getUniqueId()) ? data.get(player.getUniqueId()).getPersistentData(key) : null;
     }
 
     @Override
     public void setPersistentData(Player player, String key, String value) {
-        data.computeIfAbsent(player, playerKey -> new StoredData(playerKey, scheduler)).setPersistentData(key, value);
+        data.computeIfAbsent(player.getUniqueId(), playerKey -> new StoredData(
+                player.getUniqueId(), player.getLastLogin(), scheduler)).setPersistentData(key, value);
     }
 
     @Override
