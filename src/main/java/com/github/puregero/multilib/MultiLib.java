@@ -34,7 +34,7 @@ public class MultiLib {
         return multiLib = new BukkitImpl();
     }
 
-    public static boolean isMultiPaperServer() {
+    public static boolean isMultiPaper() {
         return !(multiLib instanceof BukkitImpl);
     }
     /**
