@@ -34,6 +34,9 @@ public class MultiLib {
         return multiLib = new BukkitImpl();
     }
 
+    public static boolean isMultiPaperServer() {
+        return !(multiLib instanceof BukkitImpl);
+    }
     /**
      * Returns whether the chunk is running on an external server or not.
      *
