@@ -8,6 +8,7 @@ import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.constructor.SafeConstructor;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -52,7 +53,7 @@ public class BukkitDataStorageImpl implements DataStorageImpl {
                 File file = getFile();
                 if (file.isFile()) {
                     try (FileInputStream in = new FileInputStream(file)) {
-                        return new Yaml().load(in);
+                        return new Yaml(new SafeConstructor()).load(in);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
