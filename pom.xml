@@ -6,7 +6,7 @@
 
     <groupId>com.github.puregero</groupId>
     <artifactId>multilib</artifactId>
-    <version>1.1.9</version>
+    <version>1.1.10</version>
     <description>Plugin Library for interfacing with MultiPaper Specific API's with graceful fallback that maintains Spigot Compatibility, such as External Player Detection.</description>
 
     <name>MultiLib</name>
