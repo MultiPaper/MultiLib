@@ -14,13 +14,16 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.plugin.java.PluginClassLoader;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -30,6 +33,7 @@ public class BukkitImpl implements MultiLibImpl {
     private final Map<UUID, StoredData> data = new HashMap<>();
     private final ScheduledThreadPoolExecutor scheduler = new ScheduledThreadPoolExecutor(1);
     private final BukkitDataStorageImpl dataStorage = new BukkitDataStorageImpl();
+    private final Map<String, List<BiConsumer<byte[], BiConsumer<String, byte[]>>>> notificationListeners = new ConcurrentHashMap<>();
 
     public BukkitImpl() {
         JavaPlugin plugin = JavaPlugin.getProvidingPlugin(getClass());
@@ -137,12 +141,12 @@ public class BukkitImpl implements MultiLibImpl {
 
     @Override
     public void on(Plugin plugin, String channel, Consumer<byte[]> callback) {
-        // Do nothing, no other servers exist
+        notificationListeners.computeIfAbsent(channel, key -> new ArrayList<>()).add((data, reply) -> callback.accept(data));
     }
 
     @Override
     public void on(Plugin plugin, String channel, BiConsumer<byte[], BiConsumer<String, byte[]>> callbackWithReply) {
-        // Do nothing, no other servers exist
+        notificationListeners.computeIfAbsent(channel, key -> new ArrayList<>()).add(callbackWithReply);
     }
 
     @Override
@@ -153,6 +157,25 @@ public class BukkitImpl implements MultiLibImpl {
     @Override
     public void notify(Chunk chunk, String channel, byte[] data) {
         // Do nothing, no other servers exist
+    }
+
+    @Override
+    public void notifyOwningServer(Chunk chunk, String channel, byte[] data) {
+        // We naturally own this chunk, notify ourself
+        processNotification(channel, data);
+    }
+
+    @Override
+    public void notifyOwningServer(Player player, String channel, byte[] data) {
+        // We naturally own this chunk, notify ourself
+        processNotification(channel, data);
+    }
+
+    private void processNotification(String channel, byte[] data) {
+        notificationListeners.getOrDefault(channel, Collections.emptyList()).forEach(listener -> listener.accept(data, (replyChannel, replyData) -> {
+            // We're naturally replying to ourself
+            processNotification(replyChannel, replyData);
+        }));
     }
 
     @Override

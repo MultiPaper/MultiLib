@@ -80,6 +80,18 @@ public interface MultiLibImpl {
         notify(chunk, channel, data.getBytes(StandardCharsets.UTF_8));
     }
 
+    void notifyOwningServer(Chunk chunk, String channel, byte[] data);
+
+    default void notifyOwningServer(Chunk chunk, String channel, String data) {
+        notifyOwningServer(chunk, channel, data.getBytes(StandardCharsets.UTF_8));
+    }
+
+    void notifyOwningServer(Player player, String channel, byte[] data);
+
+    default void notifyOwningServer(Player player, String channel, String data) {
+        notifyOwningServer(player, channel, data.getBytes(StandardCharsets.UTF_8));
+    }
+
     void chatOnOtherServers(Player player, String message);
 
     Collection<? extends Player> getAllOnlinePlayers();

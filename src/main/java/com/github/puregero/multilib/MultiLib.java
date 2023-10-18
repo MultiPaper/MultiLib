@@ -12,6 +12,7 @@ import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -271,7 +272,7 @@ public class MultiLib {
     }
 
     /**
-     * Notify other servers.
+     * Notify all other servers.
      *
      * @param channel The notification channel to notify on
      * @param data The data to notify other servers with
@@ -281,7 +282,7 @@ public class MultiLib {
     }
 
     /**
-     * Notify other servers.
+     * Notify all other servers.
      *
      * @param channel The notification channel to notify on
      * @param data The data to notify other servers with
@@ -310,6 +311,56 @@ public class MultiLib {
      */
     public static void notify(Chunk chunk, String channel, String data) {
         get().notify(chunk, channel, data);
+    }
+
+    /**
+     * Notify the owning server of the specified chunk.
+     * This chunk must be loaded on this server.
+     * This will notify this server if this server is the owning server.
+     *
+     * @param chunk The loaded chunk with an owning server
+     * @param channel The notification channel to notify on
+     * @param data The data to notify other servers with
+     */
+    public static void notifyOwningServer(Chunk chunk, String channel, byte[] data) {
+        get().notifyOwningServer(chunk, channel, data);
+    }
+
+    /**
+     * Notify the owning server of the specified chunk.
+     * This chunk must be loaded on this server.
+     * This will notify this server if this server is the owning server.
+     *
+     * @param chunk The loaded chunk with an owning server
+     * @param channel The notification channel to notify on
+     * @param data The data to notify other servers with
+     */
+    public static void notifyOwningServer(Chunk chunk, String channel, String data) {
+        get().notifyOwningServer(chunk, channel, data);
+    }
+
+    /**
+     * Notify the owning server of the specified player.
+     * This will notify this server if this server is the owning server.
+     *
+     * @param player The player with an owning server
+     * @param channel The notification channel to notify on
+     * @param data The data to notify other servers with
+     */
+    public static void notifyOwningServer(Player player, String channel, byte[] data) {
+        get().notifyOwningServer(player, channel, data);
+    }
+
+    /**
+     * Notify the owning server of the specified player.
+     * This will notify this server if this server is the owning server.
+     *
+     * @param player The player with an owning server
+     * @param channel The notification channel to notify on
+     * @param data The data to notify other servers with
+     */
+    public static void notifyOwningServer(Player player, String channel, String data) {
+        get().notifyOwningServer(player, channel, data);
     }
 
     /**

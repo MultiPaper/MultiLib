@@ -6,7 +6,7 @@
 
     <groupId>com.github.puregero</groupId>
     <artifactId>multilib</artifactId>
-    <version>1.1.12</version>
+    <version>1.1.13-SNAPSHOT</version>
     <description>Plugin Library for interfacing with MultiPaper Specific API's with graceful fallback that maintains Spigot Compatibility, such as External Player Detection.</description>
 
     <name>MultiLib</name>
@@ -28,19 +28,19 @@
         <dependency>
             <groupId>com.github.puregero</groupId>
             <artifactId>multipaper-api</artifactId>
-            <version>1.18.2-R0.1-SNAPSHOT</version>
+            <version>1.20.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>net.kyori</groupId>
             <artifactId>adventure-api</artifactId>
-            <version>4.12.0</version>
+            <version>4.14.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
-            <version>1.33</version>
+            <version>2.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

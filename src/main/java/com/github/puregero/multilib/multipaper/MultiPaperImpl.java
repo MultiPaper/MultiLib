@@ -159,6 +159,26 @@ public class MultiPaperImpl implements MultiLibImpl {
     }
 
     @Override
+    public void notifyOwningServer(Chunk chunk, String channel, byte[] data) {
+        Bukkit.getMultiPaperNotificationManager().notifyOwningServer(chunk, channel, data);
+    }
+
+    @Override
+    public void notifyOwningServer(Chunk chunk, String channel, String data) {
+        Bukkit.getMultiPaperNotificationManager().notifyOwningServer(chunk, channel, data);
+    }
+
+    @Override
+    public void notifyOwningServer(Player player, String channel, byte[] data) {
+        Bukkit.getMultiPaperNotificationManager().notifyOwningServer(player, channel, data);
+    }
+
+    @Override
+    public void notifyOwningServer(Player player, String channel, String data) {
+        Bukkit.getMultiPaperNotificationManager().notifyOwningServer(player, channel, data);
+    }
+
+    @Override
     public void chatOnOtherServers(Player player, String message) {
         player.chatOnOtherServers(message);
     }
