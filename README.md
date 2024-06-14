@@ -98,6 +98,16 @@ backing database is in-memory and utilises an inefficient file storage format.
 Adding is an atomic operation. Any changes on one server will instantly be
 reflected across all other servers.
 
+### ShreddedPaper / Folia methods
+```java
+RegionizedScheduler getRegionScheduler();
+EntityScheduler getEntityScheduler(Entity entity);
+boolean isOwnedByCurrentRegion(Location location);
+boolean isOwnedByCurrentRegion(Entity entity);
+CompletableFuture<Chunk> getChunkAtAsync(Location location);
+CompletableFuture<Boolean> teleportAsync(Entity entity, Location location, PlayerTeleportEvent.TeleportCause cause);
+```
+
 ## Example Plugin
 
 ```java
