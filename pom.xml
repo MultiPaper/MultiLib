@@ -11,12 +11,19 @@
     <description>Plugin Library for interfacing with MultiPaper Specific API's with graceful fallback that maintains Spigot Compatibility, such as External Player Detection.</description>
 
     <properties>
-        <revision>1.2.0-SNAPSHOT</revision>
+        <revision>1.2.0</revision>
 
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+        </license>
+    </licenses>
 
     <modules>
         <module>multilib-common</module>
@@ -55,12 +62,10 @@
         <defaultGoal>clean install</defaultGoal>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
                 <configuration>
-                    <source>17</source>
-                    <target>17</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -87,6 +92,12 @@
                 </executions>
             </plugin>
             <plugin>
+                <artifactId>maven-install-plugin</artifactId>
+                <configuration>
+                    <pomFile>.flattened-pom.xml</pomFile>
+                </configuration>
+            </plugin>
+            <plugin>
                 <artifactId>maven-source-plugin</artifactId>
                 <executions>
                     <execution>
@@ -109,6 +120,9 @@
             <plugin>
                 <!-- explicitly define maven-deploy-plugin after other to force exec order -->
                 <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <pomFile>.flattened-pom.xml</pomFile>
+                </configuration>
                 <executions>
                     <execution>
                         <id>deploy</id>
