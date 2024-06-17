@@ -155,7 +155,7 @@ repositories {
 Dependency:
 ```groovy
 dependencies {
-    implementation "com.github.puregero:multilib:1.2.0"
+    implementation "com.github.puregero:multilib:1.2.1"
 }
 ```
 
@@ -186,7 +186,7 @@ Dependency:
     <dependency>
         <groupId>com.github.puregero</groupId>
         <artifactId>multilib</artifactId>
-        <version>1.2.0</version>
+        <version>1.2.1</version>
         <scope>compile</scope>
      </dependency>
  </dependencies>

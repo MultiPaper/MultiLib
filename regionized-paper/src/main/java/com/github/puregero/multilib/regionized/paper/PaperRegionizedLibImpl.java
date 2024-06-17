@@ -23,7 +23,7 @@ public class PaperRegionizedLibImpl implements RegionizedLib {
             Entity.class.getMethod("getScheduler");
             Server.class.getMethod("getRegionScheduler");
         } catch (NoSuchMethodException e) {
-            throw new IllegalStateException("Not a MultiPaper environment", e);
+            throw new IllegalStateException("Not a Folia-compatible Paper environment", e);
         }
     }
 

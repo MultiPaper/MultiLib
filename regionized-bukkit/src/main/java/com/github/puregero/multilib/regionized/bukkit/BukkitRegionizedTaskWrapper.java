@@ -16,7 +16,7 @@ public class BukkitRegionizedTaskWrapper implements RegionizedTask, Runnable {
     private final long periodTicks;
     private BukkitTask bukkitTask;
 
-    private AtomicReference<ExecutionState> executionState = new AtomicReference<>(ExecutionState.IDLE);
+    private final AtomicReference<ExecutionState> executionState = new AtomicReference<>(ExecutionState.IDLE);
 
     public BukkitRegionizedTaskWrapper(Plugin plugin, Consumer<RegionizedTask> task) {
         this(plugin, task, 0);
@@ -85,25 +85,30 @@ public class BukkitRegionizedTaskWrapper implements RegionizedTask, Runnable {
                 return CancelledState.RUNNING;
             }
         }
-        return switch (executionState.get()) {
-            case IDLE, RUNNING -> {
+        switch (executionState.get()) {
+            case IDLE:
+            case RUNNING:
                 this.bukkitTask.cancel();
                 executionState.set(ExecutionState.CANCELLED);
-                yield CancelledState.CANCELLED_BY_CALLER;
-            }
-            case CANCELLED -> CancelledState.CANCELLED_ALREADY;
-            case CANCELLED_RUNNING -> CancelledState.NEXT_RUNS_CANCELLED_ALREADY;
-            case FINISHED -> CancelledState.ALREADY_EXECUTED;
-        };
+                return CancelledState.CANCELLED_BY_CALLER;
+            case CANCELLED:
+                return CancelledState.CANCELLED_ALREADY;
+            case CANCELLED_RUNNING:
+                return CancelledState.NEXT_RUNS_CANCELLED_ALREADY;
+            case FINISHED:
+                return CancelledState.ALREADY_EXECUTED;
+            default:
+                throw new IllegalStateException("Unknown execution state: " + executionState.get());
+        }
     }
 
     @Override
     public @NotNull RegionizedTask.ExecutionState getExecutionState() {
-        return this.getExecutionState();
+        return this.executionState.get();
     }
 
     @Override
     public boolean isCancelled() {
-        return this.bukkitTask.isCancelled();
+        return this.getExecutionState() == ExecutionState.CANCELLED || this.getExecutionState() == ExecutionState.CANCELLED_RUNNING;
     }
 }

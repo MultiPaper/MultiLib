@@ -35,7 +35,7 @@ public class MultiLib {
 
         try {
             return multiLib = new MultiPaperImpl();
-        } catch (Exception ignored) {
+        } catch (Exception | UnsupportedClassVersionError  ignored) {
             // Ignored, not MultiPaper environment, fallback to Bukkit
         }
 
@@ -49,7 +49,7 @@ public class MultiLib {
 
         try {
             return regionizedLib = new PaperRegionizedLibImpl();
-        } catch (Exception ignored) {
+        } catch (Exception | UnsupportedClassVersionError ignored) {
             // Ignored, not Paper environment, fallback to Bukkit
         }
 
@@ -508,6 +508,15 @@ public class MultiLib {
      */
     public static @NotNull CompletableFuture<Chunk> getChunkAtAsync(Location location) {
         return getRegionizedLib().getChunkAtAsync(location);
+    }
+
+    /**
+     * Teleport an entity to a location asynchronously.
+     *
+     * @return a future that will be completed once the entity is teleported
+     */
+    public static @NotNull CompletableFuture<Boolean> teleportAsync(Entity entity, Location location) {
+        return getRegionizedLib().teleportAsync(entity, location);
     }
 
     /**

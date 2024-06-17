@@ -2,29 +2,27 @@ package com.github.puregero.multilib.regionized.bukkit;
 
 import com.github.puregero.multilib.regionized.EntityScheduler;
 import com.github.puregero.multilib.regionized.RegionizedTask;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.UUID;
 import java.util.function.Consumer;
 
 public class BukkitEntitySchedulerImpl implements EntityScheduler {
 
-    private final UUID entityUuid; // Store uuid in case entity changes dimensions and is recreated
+    private final Entity entity;
 
     public BukkitEntitySchedulerImpl(Entity entity) {
-        this.entityUuid = entity.getUniqueId();
+        this.entity = entity;
     }
 
     private Entity getEntity() {
-        return Bukkit.getEntity(entityUuid);
+        return this.entity;
     }
 
     private void handle(RegionizedTask regionizedTask, Consumer<RegionizedTask> runnable, Runnable retired) {
-        if (getEntity() == null) {
+        if (getEntity() == null || getEntity().isDead() || !getEntity().isValid()) {
             regionizedTask.cancel();
             if (retired != null) {
                 retired.run();
@@ -53,6 +51,6 @@ public class BukkitEntitySchedulerImpl implements EntityScheduler {
 
     @Override
     public @Nullable RegionizedTask runAtFixedRate(@NotNull Plugin plugin, @NotNull Consumer<RegionizedTask> task, @Nullable Runnable retired, long initialDelayTicks, long periodTicks) {
-        return new BukkitRegionizedTaskWrapper(plugin, regionizedTask -> handle(regionizedTask, task, retired), periodTicks).schedule();
+        return new BukkitRegionizedTaskWrapper(plugin, regionizedTask -> handle(regionizedTask, task, retired), initialDelayTicks, periodTicks).schedule();
     }
 }

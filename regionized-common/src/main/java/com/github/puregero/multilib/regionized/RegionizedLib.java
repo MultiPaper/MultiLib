@@ -39,6 +39,10 @@ public interface RegionizedLib {
         return getChunkAtAsync(location.getWorld(), location.getBlockX() >> 4, location.getBlockZ() >> 4);
     }
 
+    default @NotNull CompletableFuture<Boolean> teleportAsync(Entity entity, Location location) {
+        return teleportAsync(entity, location, PlayerTeleportEvent.TeleportCause.PLUGIN);
+    }
+
     @NotNull CompletableFuture<Boolean> teleportAsync(Entity entity, Location location, PlayerTeleportEvent.TeleportCause cause);
     
 }

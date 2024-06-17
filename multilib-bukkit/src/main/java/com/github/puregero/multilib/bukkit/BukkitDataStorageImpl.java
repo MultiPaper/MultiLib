@@ -97,8 +97,8 @@ public class BukkitDataStorageImpl implements DataStorageImpl {
         return loadYaml().thenApply(yaml -> {
             Map<String, String> list = new HashMap<>();
             for (Map.Entry<String, Object> entry : yaml.entrySet()) {
-                if (entry.getKey() != null && entry.getKey().startsWith(keyPrefix) && entry.getValue() instanceof String string) {
-                    list.put(entry.getKey(), string);
+                if (entry.getKey() != null && entry.getKey().startsWith(keyPrefix) && entry.getValue() instanceof String) {
+                    list.put(entry.getKey(), (String) entry.getValue());
                 }
             }
             return list;
