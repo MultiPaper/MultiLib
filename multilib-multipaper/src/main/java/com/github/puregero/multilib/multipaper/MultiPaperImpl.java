@@ -23,7 +23,7 @@ public class MultiPaperImpl implements MultiLibImpl {
     public MultiPaperImpl() {
         try {
             Player.class.getMethod("isExternalPlayer");
-        } catch (NoSuchMethodException e) {
+        } catch (NoSuchMethodException | NoSuchMethodError e) {
             throw new IllegalStateException("Not a MultiPaper environment", e);
         }
     }
