@@ -35,7 +35,7 @@ public class MultiLib {
 
         try {
             return multiLib = new MultiPaperImpl();
-        } catch (Exception | UnsupportedClassVersionError  ignored) {
+        } catch (Throwable ignored) {
             // Ignored, not MultiPaper environment, fallback to Bukkit
         }
 
@@ -49,7 +49,7 @@ public class MultiLib {
 
         try {
             return regionizedLib = new PaperRegionizedLibImpl();
-        } catch (Exception | UnsupportedClassVersionError ignored) {
+        } catch (Throwable ignored) {
             // Ignored, not Paper environment, fallback to Bukkit
         }
 

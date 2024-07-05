@@ -11,7 +11,7 @@
     <description>Plugin Library for interfacing with MultiPaper Specific API's with graceful fallback that maintains Spigot Compatibility, such as External Player Detection.</description>
 
     <properties>
-        <revision>1.2.2</revision>
+        <revision>1.2.3</revision>
 
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
