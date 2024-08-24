@@ -2,7 +2,9 @@ package com.github.puregero.multilib;
 
 import com.github.puregero.multilib.bukkit.BukkitImpl;
 import com.github.puregero.multilib.multipaper.MultiPaperImpl;
+import com.github.puregero.multilib.regionized.AsyncScheduler;
 import com.github.puregero.multilib.regionized.EntityScheduler;
+import com.github.puregero.multilib.regionized.GlobalRegionScheduler;
 import com.github.puregero.multilib.regionized.RegionizedLib;
 import com.github.puregero.multilib.regionized.RegionizedScheduler;
 import com.github.puregero.multilib.regionized.bukkit.BukkitRegionizedLibImpl;
@@ -427,6 +429,22 @@ public class MultiLib {
     /* --- --- --- ---  ---  --- --- --- --- */
     /* --- --- --- RegionizedLib --- --- --- */
     /* --- --- --- ---  ---  --- --- --- --- */
+
+    /**
+     * Gets a scheduler that can schedule tasks to be run asynchronously
+     * @return the async scheduler
+     */
+    public static AsyncScheduler getAsyncScheduler() {
+        return getRegionizedLib().getAsyncScheduler();
+    }
+
+    /**
+     * Gets a scheduler that can schedule tasks to be run on the global thread
+     * @return the global region scheduler
+     */
+    public static GlobalRegionScheduler getGlobalRegionScheduler() {
+        return getRegionizedLib().getGlobalRegionScheduler();
+    }
 
     /**
      * Gets a scheduler that can schedule tasks to be run on the thread of the

@@ -1,6 +1,8 @@
 package com.github.puregero.multilib.regionized.paper;
 
+import com.github.puregero.multilib.regionized.AsyncScheduler;
 import com.github.puregero.multilib.regionized.EntityScheduler;
+import com.github.puregero.multilib.regionized.GlobalRegionScheduler;
 import com.github.puregero.multilib.regionized.RegionizedLib;
 import com.github.puregero.multilib.regionized.RegionizedScheduler;
 import org.bukkit.Bukkit;
@@ -16,15 +18,29 @@ import java.util.concurrent.CompletableFuture;
 
 public class PaperRegionizedLibImpl implements RegionizedLib {
 
+    private final PaperAsyncSchedulerImpl asyncScheduler = new PaperAsyncSchedulerImpl(Bukkit.getAsyncScheduler());
+    private final PaperGlobalRegionSchedulerImpl globalRegionScheduler = new PaperGlobalRegionSchedulerImpl(Bukkit.getGlobalRegionScheduler());
     private final PaperRegionizedSchedulerImpl regionScheduler = new PaperRegionizedSchedulerImpl(Bukkit.getRegionScheduler());
 
     public PaperRegionizedLibImpl() {
         try {
             Entity.class.getMethod("getScheduler");
             Server.class.getMethod("getRegionScheduler");
+            Server.class.getMethod("getGlobalRegionScheduler");
+            Server.class.getMethod("getAsyncScheduler");
         } catch (NoSuchMethodException | NoSuchMethodError e) {
             throw new IllegalStateException("Not a Folia-compatible Paper environment", e);
         }
+    }
+
+    @Override
+    public AsyncScheduler getAsyncScheduler() {
+        return asyncScheduler;
+    }
+
+    @Override
+    public GlobalRegionScheduler getGlobalRegionScheduler() {
+        return globalRegionScheduler;
     }
 
     @Override

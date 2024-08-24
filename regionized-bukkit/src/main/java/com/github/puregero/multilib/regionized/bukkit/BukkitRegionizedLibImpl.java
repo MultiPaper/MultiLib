@@ -1,6 +1,8 @@
 package com.github.puregero.multilib.regionized.bukkit;
 
+import com.github.puregero.multilib.regionized.AsyncScheduler;
 import com.github.puregero.multilib.regionized.EntityScheduler;
+import com.github.puregero.multilib.regionized.GlobalRegionScheduler;
 import com.github.puregero.multilib.regionized.RegionizedLib;
 import com.github.puregero.multilib.regionized.RegionizedScheduler;
 import org.bukkit.Bukkit;
@@ -15,7 +17,19 @@ import java.util.concurrent.CompletableFuture;
 
 public class BukkitRegionizedLibImpl implements RegionizedLib {
 
+    private final BukkitAsyncSchedulerImpl asyncScheduler = new BukkitAsyncSchedulerImpl();
+    private final BukkitGlobalRegionSchedulerImpl globalRegionScheduler = new BukkitGlobalRegionSchedulerImpl();
     private final BukkitRegionizedSchedulerImpl regionScheduler = new BukkitRegionizedSchedulerImpl();
+
+    @Override
+    public AsyncScheduler getAsyncScheduler() {
+        return this.asyncScheduler;
+    }
+
+    @Override
+    public GlobalRegionScheduler getGlobalRegionScheduler() {
+        return this.globalRegionScheduler;
+    }
 
     @Override
     public RegionizedScheduler getRegionScheduler() {

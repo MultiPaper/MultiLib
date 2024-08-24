@@ -61,6 +61,16 @@ public class BukkitRegionizedTaskWrapper implements RegionizedTask, Runnable {
         return this;
     }
 
+    public BukkitRegionizedTaskWrapper scheduleAsync() {
+        if (this.isRepeatingTask()) {
+            this.bukkitTask = this.plugin.getServer().getScheduler().runTaskTimerAsynchronously(this.plugin, this, this.initialDelayTicks, this.periodTicks);
+        } else {
+            this.bukkitTask = this.plugin.getServer().getScheduler().runTaskLaterAsynchronously(this.plugin, this, this.initialDelayTicks);
+        }
+
+        return this;
+    }
+
     @Override
     public @NotNull Plugin getOwningPlugin() {
         return this.plugin;

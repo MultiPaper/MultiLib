@@ -10,7 +10,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.concurrent.CompletableFuture;
 
 public interface RegionizedLib {
-    
+
+    AsyncScheduler getAsyncScheduler();
+
+    GlobalRegionScheduler getGlobalRegionScheduler();
+
     RegionizedScheduler getRegionScheduler();
     
     EntityScheduler getEntityScheduler(Entity entity);
