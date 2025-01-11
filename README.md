@@ -162,8 +162,8 @@ dependencies {
 Shadow Jar and Relocate (Groovy Syntax):
 ```groovy
 plugins {
-  id "com.github.johnrengelman.shadow" version "7.1.2"
-  // Make sure to always use the latest version (https://plugins.gradle.org/plugin/com.github.johnrengelman.shadow)
+  id "com.gradleup.shadow" version "8.3.5"
+  // Make sure to always use the latest version (https://plugins.gradle.org/plugin/com.gradleup.shadow)
 }
 shadowJar {
    relocate "com.github.puregero.multilib", "[YOUR PLUGIN PACKAGE].multilib"
