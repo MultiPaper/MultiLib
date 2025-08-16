@@ -30,7 +30,7 @@ import java.util.function.Consumer;
 
 public class BukkitImpl implements MultiLibImpl {
 
-    private final Map<UUID, StoredData> data = new HashMap<>();
+    private final Map<UUID, StoredData> data = new ConcurrentHashMap<>();
     private final ScheduledThreadPoolExecutor scheduler = new ScheduledThreadPoolExecutor(1);
     private final BukkitDataStorageImpl dataStorage = new BukkitDataStorageImpl(this);
     private final Map<String, List<BiConsumer<byte[], BiConsumer<String, byte[]>>>> notificationListeners = new ConcurrentHashMap<>();
@@ -130,7 +130,8 @@ public class BukkitImpl implements MultiLibImpl {
 
     @Override
     public String getPersistentData(Player player, String key) {
-        return data.containsKey(player.getUniqueId()) ? data.get(player.getUniqueId()).getPersistentData(key) : null;
+        return data.computeIfAbsent(player.getUniqueId(), playerKey -> new StoredData(
+                player.getUniqueId(), player.getLastPlayed(), scheduler)).getPersistentData(key);
     }
 
     @Override

@@ -30,8 +30,13 @@ public class StoredData {
         load();
     }
 
+    private File getDirectory() {
+        // Use package name in file to ensure multiple shaded MultiLibs aren't conflicting with eachother
+        return new File((getClass().getPackageName() + ".").replace("\tcom.github.puregero.multilib.bukkit.".substring(1), "") + "multilib-data");
+    }
+
     private File getFile() {
-        return new File("multilib-data/" + uuid + ".json");
+        return new File(this.getDirectory(), uuid + ".json");
     }
 
     private void load() {
